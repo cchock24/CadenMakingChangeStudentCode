@@ -15,10 +15,42 @@ public class MakingChange {
      */
     public static long countWays(int target, int[] coins) {
         Arrays.sort(coins);
+
         // Number of Ways with 5 and 1 coins + number of ways with 10 = number of ways with 1,5,10
+        int length = coins.length-1;
 
+        return change(target, coins, length);
+    }
 
-        return 0;
+    // Reverse Order of Array
+    public static int[] reverse(int[] coins) {
+        int n = coins.length;
+        for (int i = 0; i < n / 2; i++) {
+            int t = coins[i];
+            coins[i] = coins[n - i - 1];
+            coins[n - i - 1] = t;
+        }
+        return coins;
+    }
+
+    public static int change(int target, int[] coins, int length){
+        int ways = 0;
+        if(target == 0){
+            return 1;
+        }
+        if(coins == null){
+            return 0;
+        }
+        if(target < 0){
+            return 0;
+        }
+        //Include
+        ways += change(target - coins[0], coins, length);
+
+        //Exclude
+        ways += change(target, Arrays.copyOf(coins, length-1), length-1);
+
+        return ways;
     }
 
     // Get Smallest number of coins needed
