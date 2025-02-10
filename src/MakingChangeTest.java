@@ -41,6 +41,12 @@ public class MakingChangeTest {
         setTestData(6);
     }
 
+    @Test
+    @Timeout(value = 150, unit = TimeUnit.MILLISECONDS)
+    public void testEasy() {
+        setTestData(7);
+    }
+
     private void setTestData(int testNumber) {
         // Open files
         try {

@@ -15,11 +15,7 @@ public class MakingChange {
      */
     public static long countWays(int target, int[] coins) {
         Arrays.sort(coins);
-
-        // Number of Ways with 5 and 1 coins + number of ways with 10 = number of ways with 1,5,10
-        int length = coins.length-1;
-
-        return change(target, coins, length);
+        return Memo(target, coins);
     }
 
     // Reverse Order of Array
@@ -33,37 +29,50 @@ public class MakingChange {
         return coins;
     }
 
-    public static int change(int target, int[] coins, int length){
-        int ways = 0;
+    public static long Memo(int target, int[] coins){
+        coins = reverse(coins);
+        // Number of Ways with 5 and 1 coins + number of ways with 10 = number of ways with 1,5,10
+        int length = coins.length-1;
+        long[][] saved = new long[target+1][length+1];
+        // Set base case
+        for(int i = 0; i < coins.length; i++){
+            saved[0][i] = 1;
+        }
+        return changeMemo(target, coins, 0, saved);
+    }
+
+    public static long changeMemo(int target, int[] coins, int length, long[][] saved){
+        long ways = 0;
         if(target == 0){
             return 1;
         }
-        if(coins == null){
+        if(length > coins.length-1){
             return 0;
         }
         if(target < 0){
             return 0;
         }
+        if(saved[target][length] != 0){
+            return saved[target][length];
+        }
         //Include
-        ways += change(target - coins[0], coins, length);
-
+        ways += changeMemo(target - coins[length], coins, length, saved);
         //Exclude
-        ways += change(target, Arrays.copyOf(coins, length-1), length-1);
-
+        ways += changeMemo(target, coins, length+1, saved);
+        saved[target][length] = ways;
         return ways;
     }
 
-    // Get Smallest number of coins needed
-    public static int[] getCoins(int[] coins, int target){
-        int[] change = new int[coins.length];
-        for(int i = coins.length-1; i >= 0; i--){
-            int counter = 0;
-            while(target > coins[i]){
-                target = target - coins[i];
-                counter++;
+    public static long Tab(int target, int[] coins){
+
+        return 0;
+    }
+
+    public static long changeTab(int target, int[] coins, int length, long[][] saved){
+        for(int i = 0; i < coins.length; i++){
+            for(int j = 1; j < target; j++){
+
             }
-            change[i] = counter;
         }
-        return change;
     }
 }
