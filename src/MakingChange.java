@@ -28,6 +28,7 @@ public class MakingChange {
 
     public static long Memo(int target, int[] coins){
         coins = reverse(coins);
+        // Keeps track of which coins using
         int length = coins.length-1;
         long[][] saved = new long[target+1][length+1];
         // Set base case
