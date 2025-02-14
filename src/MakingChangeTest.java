@@ -41,6 +41,7 @@ public class MakingChangeTest {
         setTestData(6);
     }
 
+    // An Easier Test Case I made to Help Debug
     @Test
     @Timeout(value = 150, unit = TimeUnit.MILLISECONDS)
     public void testEasy() {
